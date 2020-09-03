@@ -18,16 +18,5 @@
   },
   "suggest": {
     "codeception/codeception": "BDD testing framework for testing applications"
-  },
-  "scripts": {
-    "test": [
-      "phpunit",
-      "phpstan analyse"
-    ],
-    "fixer": "php-cs-fixer --verbose fix"
-  },
-  "scripts-descriptions": {
-    "test": "Run all tests and quality checks",
-    "fixer": "Run php fixer"
   }
 }
