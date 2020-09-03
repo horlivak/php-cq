@@ -1,0 +1,33 @@
+{
+  "name": "recklessStorm/php-cq",
+  "description": "Quality assurance toolchain",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jindřich Horlivý",
+      "email": "horlivyjindrich@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "phpunit/phpunit": ">= 7.0, < 9.0",
+    "phpstan/phpstan": ">= 0.11.0, < 1.0.0",
+    "phpstan/phpstan-strict-rules": ">= 0.11.0, < 1.0.0",
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "suggest": {
+    "codeception/codeception": "BDD testing framework for testing applications"
+  },
+  "scripts": {
+    "test": [
+      "phpunit",
+      "phpstan analyse"
+    ],
+    "fixer": "php-cs-fixer --verbose fix"
+  },
+  "scripts-descriptions": {
+    "test": "Run all tests and quality checks",
+    "fixer": "Run php fixer"
+  }
+}
