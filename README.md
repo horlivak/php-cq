@@ -15,19 +15,21 @@ It can be installed through composer.
 
 Create the PHPUnit configuration into the projects root folder
 
+    cp vendor/reckless-storm/php-cq/phpunit.xml.dist .
+
 ### PHPStan
 [PHPStan](https://github.com/phpstan/phpstan) is a static code analysis tool.
 
 Create the PHPStan configuration to the project root folder
 
-    cp vendor/reklessStorm/php-cq/phpstan.neon.dist phpstan.neon
+    cp vendor/reckless-storm/php-cq//phpstan.neon.dist phpstan.neon
 
 ### PHP-CS-Fixer
 [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) tool fixes your code to follow standards.
 
 Create the PHP-CS-Fixer configuration to the project root folder
 
-    cp vendor/reklessStorm/php-cq/.php_cs.dist .php_cs
+    cp vendor/reckless-storm/php-cq/php-cq/.php_cs.dist .
 
 ### Codeception (suggested)
 [Codeception](http://codeception.com/) is a BDD style testing frameworks for PHP. It can be used for unit, functional
