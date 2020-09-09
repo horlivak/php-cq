@@ -4,7 +4,7 @@
 
 It can be installed through composer.
 
-    composer require --dev recklessStorm/php-cq
+    composer require --dev reckless-storm/php-cq
 
 
 ## Toolchain
