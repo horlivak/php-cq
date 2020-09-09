@@ -43,7 +43,7 @@ Composer can be configured to run all tests
     "scripts": {
         "test": [
           "phpunit",
-          "phpstan phpstan analyse --configuration phpstan.neon --error-format=raw"
+          "phpstan analyse --configuration phpstan.neon --error-format=raw"
         ],
         "fixer": "php-cs-fixer --verbose fix"
     },
