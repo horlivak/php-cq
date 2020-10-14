@@ -29,7 +29,7 @@ Create the PHPStan configuration to the project root folder
 
 Create the PHP-CS-Fixer configuration to the project root folder
 
-    cp vendor/reckless-storm/php-cq/php-cq/.php_cs.dist .
+    cp vendor/reckless-storm/php-cq/.php_cs.dist .php_cs.dist
 
 ### Codeception (suggested)
 [Codeception](http://codeception.com/) is a BDD style testing frameworks for PHP. It can be used for unit, functional
