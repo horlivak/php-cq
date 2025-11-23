@@ -10,13 +10,60 @@
     }
   ],
   "require": {
-    "php": ">=7.2.0",
-    "phpunit/phpunit": ">= 7.0, < 9.0",
-    "phpstan/phpstan": ">= 0.11.0, < 1.0.0",
-    "phpstan/phpstan-strict-rules": ">= 0.11.0, < 1.0.0",
-    "friendsofphp/php-cs-fixer": "^2.16"
+    "php": ">=8.3.0",
+    "ergebnis/phpstan-rules": "^2.12",
+    "phpunit/phpunit": "^12.3",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpdoc-parser": "^2.1",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan-beberlei-assert": "^2.0",
+    "phpstan/phpstan-doctrine": "^2.0",
+    "phpstan/phpstan-phpunit": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpstan/phpstan-symfony": "^2.0",
+    "rector/rector": ">= 2.0, < 2.2.8",
+    "spaze/phpstan-disallowed-calls": "^4.6",
+    "symplify/easy-coding-standard": "^12.0",
+    "symplify/phpstan-rules": "^14.7",
+    "tomasvotruba/class-leak": "^2.0",
+    "tomasvotruba/cognitive-complexity": "^1.0",
+    "tomasvotruba/type-coverage": "^2.0"
   },
   "suggest": {
     "codeception/codeception": "BDD testing framework for testing applications"
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
+  },
+  "scripts": {
+    "ecs": "./vendor/bin/ecs check --config ecs.php --fix",
+    "ecs-show": "./vendor/bin/ecs check --config ecs.php",
+    "rector": "./vendor/bin/rector process src tests migrations",
+    "rector-show": "./vendor/bin/rector process src tests migrations --dry-run",
+    "phpstan": "./vendor/bin/phpstan analyse --configuration phpstan.neon --error-format=raw",
+    "test": [
+      "phpunit",
+      "@ecs-show",
+      "@rector-show",
+      "@phpstan"
+    ],
+    "fix": [
+      "@ecs",
+      "@rector"
+    ],
+    "checks": [
+      "@ecs-show",
+      "@rector-show",
+      "@phpstan",
+      "@composer dump-autoload",
+      "@composer validate"
+    ]
+  },
+  "scripts-descriptions": {
+    "checks": "Run all quality checks and show them",
+    "fix": "Run all quality checks and fix them",
+    "test": "Run all tests"
   }
 }

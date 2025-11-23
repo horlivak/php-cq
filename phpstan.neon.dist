@@ -1,6 +1,61 @@
 parameters:
-    level: 7
+    level: max
+
+    tmpDir: /tmp/tool_cache/phpstan
+
     paths:
         - src
+        - tests
+        - migrations
+
+    checkExplicitMixed: true
+    checkDynamicProperties: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkUninitializedProperties: true
+    checkMissingCallableSignature: true
+
+    exceptions:
+        check:
+            missingCheckedExceptionInThrows: true
+            tooWideThrowType: true
+        implicitThrows: false
+
+    type_coverage: # We want to have type safe code - https://tomasvotruba.com/blog/how-to-measure-your-type-coverage/
+        return_type: 100
+        param_type: 100
+        property_type: 100
+
+    cognitive_complexity: # https://tomasvotruba.com/blog/keep-cognitive-complexity-low-with-phpstan/
+        class: 20
+        function: 9
+
+    ignoreErrors:
+        - '#Return type of call to method PHPUnit\\Framework\\TestCase::createMock\(\) contains unresolvable type.#'
+        - '#Return type of call to method PHPUnit\\Framework\\TestCase::createPartialMock\(\) contains unresolvable type.#'
+
+    ergebnis:
+        noExtends:
+            classesAllowedToBeExtended:
+                - Exception
+                - Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+                - Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+
+        noNamedArgument:
+            enabled: false
+        noNullableReturnTypeDeclaration:
+            enabled: false
+        noParameterWithNullableTypeDeclaration:
+            enabled: false
+        noParameterWithNullDefaultValue:
+            enabled: false
+        noConstructorParameterWithDefaultValue:
+            enabled: false
+
+    excludePaths:
+        - tests/bootstrap.php
+
 includes:
-  	- vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/symplify/phpstan-rules/config/static-rules.neon
+    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+    - vendor/symplify/phpstan-rules/config/naming-rules.neon

@@ -13,7 +13,9 @@ It can be installed through composer.
 [PHPUnit](https://phpunit.de/) is a programmer-oriented testing framework for PHP. The unit tests should be in the
 `tests` directory.
 
-Create the PHPUnit configuration into the projects root folder
+Create the PHPUnit configuration in the project's root folder
+
+    cp vendor/horlivak/php-cq/phpunit.xml.dist phpunit.xml
 
 ### PHPStan
 [PHPStan](https://github.com/phpstan/phpstan) is a static code analysis tool.
@@ -22,38 +24,71 @@ Create the PHPStan configuration to the project root folder
 
     cp vendor/horlivak/php-cq/phpstan.neon.dist phpstan.neon
 
-### PHP-CS-Fixer
-[PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) tool fixes your code to follow standards.
+### ECS (Easy Coding Standard)
+[ECS](https://github.com/easy-coding-standard/easy-coding-standard) tool fixes your code to follow standards.
 
-Create the PHP-CS-Fixer configuration to the project root folder
+Create the ECS configuration in the project root folder
 
-    cp vendor/horlivak/php-cq/.php_cs.dist .php_cs.dist
+    cp vendor/horlivak/php-cq/ecs.php.dist ecs.php
 
-### Codeception (suggested)
-[Codeception](http://codeception.com/) is a BDD style testing frameworks for PHP. It can be used for unit, functional
+### Rector
+[Rector](https://github.com/rectorphp/rector) is a tool for instant upgrades and automated refactoring of PHP code.
+
+Create the Rector configuration in the project root folder
+
+    cp vendor/horlivak/php-cq/rector.php.dist rector.php
+
+### Codeception (optional)
+[Codeception](http://codeception.com/) is a BDD style testing framework for PHP. It can be used for unit, functional
 and integration tests.
 
-Codeception isn't installed by default. It can be installed through composer.
+Codeception isn't included by default. It can be installed through composer.
+
+## Usage
 
 ### Composer scripts
-Composer can be configured to run all tests
+Add these scripts to your `composer.json` to run quality checks and tests:
 
     "scripts": {
+        "ecs": "./vendor/bin/ecs check --config ecs.php --fix",
+        "ecs-show": "./vendor/bin/ecs check --config ecs.php",
+        "rector": "./vendor/bin/rector process src tests migrations",
+        "rector-show": "./vendor/bin/rector process src tests migrations --dry-run",
+        "phpstan": "./vendor/bin/phpstan analyse --configuration phpstan.neon --error-format=raw",
         "test": [
           "phpunit",
-          "phpstan analyse --configuration phpstan.neon --error-format=raw"
+          "@ecs-show",
+          "@rector-show",
+          "@phpstan"
         ],
-        "fixer": "php-cs-fixer --verbose fix"
+        "fix": [
+          "@ecs",
+          "@rector"
+        ],
+        "checks": [
+          "@ecs-show",
+          "@rector-show",
+          "@phpstan",
+          "@composer dump-autoload",
+          "@composer validate"
+        ]
     },
     "scripts-descriptions": {
-        "test": "Run all tests and quality checks",
-        "fixer": "Run php fixer"
+        "checks": "Run all quality checks and show them",
+        "fix": "Run all quality checks and fix them",
+        "test": "Run all tests"
     }
 
-To run all tests do
+### Running commands
 
-    composer run-script test
-    
-To run php fixer
+To run all quality checks:
 
-    composer run-script fixer
+    composer checks
+
+To run automated fixes:
+
+    composer fix
+
+To run all tests:
+
+    composer test
